@@ -9,6 +9,7 @@ import java.util.List;
 import clase.Ciocolata;
 import clase.Corn;
 import clase.Magazin;
+import clase.MagazinService;
 import clase.Paine;
 import clase.Produs;
 
@@ -27,6 +28,8 @@ public class Program {
 		
 		Magazin magazin = new Magazin(stoc);
 		
+		MagazinService magazinService=new MagazinService(magazin);
+		
 		BufferedReader buffer =  new BufferedReader(new InputStreamReader(System.in)); 
 		String command="";
 		
@@ -34,11 +37,43 @@ public class Program {
 		
 		try {
 			while((command = buffer.readLine()) != null){
+				String[] split;
 				if(command.contains("EXIT")) {
 					System.out.println("Program finished.");
 					break;
 				}
-				System.out.println(command);
+				
+				if(command.contains("ADAUGA_CLIENT")) {
+					try {
+						split = command.split("\\s+");
+						magazinService.adaugaClient(split[1]);
+					} catch (Exception e) {
+						System.out.println("Comanda incorecta, structura este: ADAUGA_CLIENT <nume>");
+					}
+				}else if(command.contains("ADAUGA_PRODUS")) {
+					split = command.split("\\s+");
+					try {
+						magazinService.adaugaProdus(split[1], split[2]);
+					} catch (Exception e) {
+						System.out.println("Comanda incorecta, structura este: ADAUGA_PRODUS <numeClient> <tipProdus>");
+					}
+				} else if(command.contains("AFISARE_COMPLETA")) {
+					magazinService.afisareCompleta();				
+				}else if(command.contains("AFISARE_COS")) {
+					try {
+						split = command.split("\\s+");
+						magazinService.afisareCos(split[1]);
+					} catch (Exception e) {
+						System.out.println("Comanda incorecta, structura este: AFISARE_COS <numeClient>");
+					}
+					
+				}else if(command.contains("EXIT")) {
+					System.out.println("Program finished.");
+					break;
+				}else {
+					System.out.println("Comanda nu exista");
+				}
+				
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

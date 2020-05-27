@@ -2,9 +2,13 @@ package clase;
 
 import java.util.List;
 
-public class Client {
+public class Client implements Comparable<Client> {
 	private String nume;
 	
+	public Client(String nume) {
+		super();
+		this.nume = nume;
+	}
 	public String getNume() {
 		return nume;
 	}
@@ -16,4 +20,12 @@ public class Client {
 	public String toString() {
 		return this.nume;
 	}
+	
+	@Override
+	  public int compareTo(Client c) {
+	    if (getNume() == null || c.getNume() == null) {
+	      return 0;
+	    }
+	    return getNume().compareTo(c.getNume());
+	  }
 }
