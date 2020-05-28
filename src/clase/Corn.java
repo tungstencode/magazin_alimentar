@@ -1,6 +1,8 @@
 package clase;
 
-public class Corn extends Produs {
+import java.util.Comparator;
+
+public class Corn extends Produs implements Comparable<Corn> {
 	private String umplutura;
 	
 	public Corn(int cantitate,float pret, String nume,String umplutura) {
@@ -13,6 +15,14 @@ public class Corn extends Produs {
 	}
 	public void setUmplutura(String umplutura) {
 		this.umplutura = umplutura;
+	}
+	@Override
+	public int compareTo(Corn corn) {
+		return Comparator.comparing(Corn::getNume)
+	              .thenComparing(Corn::getPret)
+	              .thenComparing(Corn::getUmplutura)
+	              .thenComparingInt(Corn::getCantitate)
+	              .compare(this, corn);
 	}
 
 }
